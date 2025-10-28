@@ -67,11 +67,3 @@ Algunos ejemplos prácticos:
 
 ---
 
-## 💬 Ejemplos de consultas al agente
-
-- “¿Qué son las fake news según el documento?”  
-- “¿Cómo puede la inteligencia artificial agravar la desinformación?”  
-- “¿Qué consejos se dan para evitar compartir noticias falsas?”  
-
----
-
