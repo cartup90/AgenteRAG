@@ -4,7 +4,7 @@ Agente RAG desarrollado con Flowise y OpenAI GPT-4o-mini.  Ejemplo demostrativo 
 # 🧠 Agente RAG sobre Fake News  
 **Proyecto demostrativo desarrollado con Flowise y OpenAI GPT-4o-mini**
 
-![Flowise Chatbot Demo](https://github.com/tuusuario/flowise-rag-fakenews/assets/demo-image.png)
+![Flowise Chatbot Demo](https://cartup90.github.io/AgenteRAG/)
 
 ---
 
