@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agente RAG sobre Fake News – Flowise</title>
+  <style>
+    :root {
+      --primary: #1e88e5;
+      --bg: #f9fafb;
+      --text: #222;
+      --card-bg: #fff;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- NAVBAR --- */
+    nav {
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 0.8; }
+
+    /* --- HEADER --- */
+    header {
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* --- MAIN LAYOUT --- */
+    main {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+      gap: 1.5rem;
+    }
+
+    .chat-container {
+      flex: 1 1 50%;
+      background: var(--card-bg);
+      box-shadow: 0 2px 6px var(--shadow);
+      border-radius: 1rem;
+      overflow: hidden;
+      height: 80vh;
+      min-height: 500px;
+
+      /* sticky behavior */
+      position: sticky;
+      top: 1.5rem;
+      align-self: flex-start;
+    }
+
+    .info-container {
+      flex: 1 1 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    section {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 2px 5px var(--shadow);
+      padding: 1.8rem;
+      transition: all 0.3s ease;
+      scroll-margin-top: 80px; /* 🔥 evita que el nav tape el título */
+    }
+    section:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    p { margin-bottom: 1rem; color: #333; }
+    ol, ul { margin-left: 1.2rem; margin-bottom: 1rem; }
+    ul li, ol li { margin-bottom: 0.5rem; }
+    code {
+      background: #eef2f6;
+      color: #1a237e;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin: 2rem 0 1rem;
+    }
+    @media (max-width: 992px) {
+      main { flex-direction: column; }
+      .chat-container { height: 60vh; min-height: 420px; position: static; }
+      nav { flex-wrap: wrap; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#modelo">Modelo y configuración</a>
+    <a href="#flujo">Flujo de trabajo</a>
+    <a href="#casos">Casos de uso</a>
+  </nav>
+
+  <header>
+    <h1>🧠 Agente RAG sobre Fake News</h1>
+    <p>Demostración desarrollada con Flowise y OpenAI</p>
+  </header>
+
+  <main>
+    <div class="chat-container">
+      <flowise-fullchatbot></flowise-fullchatbot>
+      <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.initFull({
+          chatflowid: "4a834323-c872-4625-8874-f870db947a8c",
+          apiHost: "https://cloud.flowiseai.com",
+        })
+      </script>
+    </div>
+
+    <div class="info-container">
+        <section>
+        <h2>Descripción general del proyecto</h2>
+        <p>
+          Este agente RAG fue desarrollado con <strong>Flowise</strong> y se basa en el modelo <code>gpt-4o-mini</code> de OpenAI.  
+          Está entrenado con el documento <em>“Fake News e Inteligencia Artificial”</em> del Gobierno de la Ciudad de Buenos Aires, lo que le permite responder preguntas relacionadas con la desinformación, la IA y los riesgos del contenido manipulado.
+        </p>
+      </section>
+      
+      <section>
+        <h2>¿Qué es un agente RAG?</h2>
+        <p>
+          Un agente basado en la técnica de <strong>Retrieval-Augmented Generation (RAG)</strong> combina el poder de un modelo de lenguaje con la capacidad de <em>recuperar información relevante de un documento o base de conocimiento externa</em>.
+        </p>
+        <p>
+          Su funcionalidad depende del documento o conjunto de documentos que se le haya cargado. El agente usa esos datos como contexto para responder preguntas con información real y actualizada.
+        </p>
+        <p>
+          En este caso, el documento de referencia trata sobre <em>Fake News e Inteligencia Artificial</em>. Es un ejemplo demostrativo: el mismo agente puede adaptarse a cualquier otro documento o dominio.
+        </p>
+      </section>
+
+      <section id="modelo">
+        <h2>Modelo y configuración</h2>
+        <p>
+          Este agente fue desarrollado con <strong>Flowise</strong> y se basa en el modelo <code>gpt-4o-mini</code> de OpenAI, configurado con <strong>temperatura 0.2</strong> para lograr respuestas precisas y coherentes con la fuente.
+        </p>
+        <p>
+          Una temperatura baja evita que el modelo “invente” información y prioriza la fidelidad al texto original, haciendo que el agente sea más informativo que creativo.
+        </p>
+      </section>
+
+      <section id="flujo">
+        <h2>Flujo de trabajo</h2>
+        <ol>
+          <li><strong>File Loader:</strong> carga el PDF “B8_Fake news.pdf”.</li>
+          <li><strong>Text Splitter:</strong> divide el texto en fragmentos.</li>
+          <li><strong>Embeddings:</strong> transforma los fragmentos en vectores semánticos.</li>
+          <li><strong>Vector Store:</strong> almacena y busca los fragmentos relevantes.</li>
+          <li><strong>QA Chain:</strong> combina las respuestas contextuales con el modelo GPT.</li>
+        </ol>
+        <p>Este flujo garantiza respuestas basadas en el documento, no solo en el conocimiento general del modelo.</p>
+      </section>
+
+      <section id="casos">
+        <h2>Casos de uso</h2>
+        <ul>
+          <li><strong>Soporte al cliente:</strong> responder consultas sobre manuales o políticas internas.</li>
+          <li><strong>Catálogos empresariales:</strong> permitir búsquedas inteligentes en catálogos o fichas técnicas.</li>
+          <li><strong>Educación:</strong> ofrecer tutorías personalizadas basadas en contenido educativo.</li>
+          <li><strong>Investigación:</strong> resumir papers o responder consultas sobre informes extensos.</li>
+        </ul>
+        <p>Por ejemplo, una empresa puede subir su catálogo de productos y permitir que el usuario consulte “¿qué modelo se adapta mejor a X necesidad?”</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 – Desarrollado por <strong>Catriel Pardo</strong> | Proyecto demostrativo con Flowise & OpenAI
+  </footer>
+</body>
+</html>
