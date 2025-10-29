@@ -4,6 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agente RAG sobre Fake News – Flowise</title>
+  <script>
+  // Evita cualquier desplazamiento inicial forzado por Flowise
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 0);
+  });
+
+  // Si Flowise recarga internamente el iframe, vuelve a fijar el scroll
+  const observer = new MutationObserver(() => {
+    window.scrollTo(0, 0);
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  </script>
   <style>
     :root {
       --primary: #1e88e5;
@@ -14,6 +28,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    
     body {
       font-family: "Inter", "Segoe UI", sans-serif;
       background: var(--bg);
@@ -72,19 +87,22 @@
     }
 
     .chat-container {
-      flex: 1 1 50%;
-      background: var(--card-bg);
-      box-shadow: 0 2px 6px var(--shadow);
-      border-radius: 1rem;
-      overflow: hidden;
-      height: 80vh;
-      min-height: 500px;
+  flex: 1 1 50%;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px var(--shadow);
+  overflow: hidden;
+  min-height: 500px;
 
-      /* sticky behavior */
-      position: sticky;
-      top: 1.5rem;
-      align-self: flex-start;
-    }
+  /* 🔧 Ajuste para evitar el scroll inicial automático */
+  position: sticky;
+  top: 0;                 /* antes estaba en 1.5rem */
+  height: 100vh;          /* ocupa toda la altura visible */
+  align-self: flex-start;
+}
+
+
+
 
     .info-container {
       flex: 1 1 50%;
@@ -99,7 +117,7 @@
       box-shadow: 0 2px 5px var(--shadow);
       padding: 1.8rem;
       transition: all 0.3s ease;
-      scroll-margin-top: 80px; /* 🔥 evita que el nav tape el título */
+      scroll-margin-top: 90px; /* 🔥 evita que el nav tape el título */
     }
     section:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
@@ -163,7 +181,7 @@
           Está entrenado con el documento <em>“Fake News e Inteligencia Artificial”</em> del Gobierno de la Ciudad de Buenos Aires, lo que le permite responder preguntas relacionadas con la desinformación, la IA y los riesgos del contenido manipulado.
         </p>
       </section>
-      
+
       <section>
         <h2>¿Qué es un agente RAG?</h2>
         <p>
@@ -217,3 +235,4 @@
   </footer>
 </body>
 </html>
+
